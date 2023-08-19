@@ -6,14 +6,27 @@ int main(){
 
     float a, b, c, discr;
     printf("Для уравнения вида ax^2+bx+c = 0 введите коэффициенты\n");
-    printf("a = ");
-    scanf ("%f", &a);
-    printf("b = ");
-    scanf ("%f", &b);
-    printf("c = ");
-    scanf ("%f", &c);
-    discr = pow (b, 2) - 4*a*c;                                       //Вычисление дискриминанта
-    if (a == 0 && b!=0){                                              //Обработка случаев при a = 0
+    int var;
+    printf("Нажмите Enter");
+    do {
+        scanf("%*[^\n]");   //Проверка на ввод только числа
+        printf("a = ");
+        var = scanf("%f", &a);
+    } while (getc(stdin) != '\n');
+    printf("Нажмите Enter");
+    do {
+        scanf("%*[^\n]");
+        printf("b = ");
+        var = scanf("%f", &b);
+    } while (getc(stdin) != '\n');
+    printf("Нажмите Enter");
+    do {
+        scanf("%*[^\n]");
+        printf("c = ");
+        var = scanf("%f", &c);
+    } while (getc(stdin) != '\n');
+    discr = pow (b, 2) - 4*a*c; //Вычисление дискриминанта
+    if (a == 0 && b!=0){    //Обработка случаев при a = 0
         printf("Уравнение не квадратное, а линейное. x = %f", c/b);
     }
     if (a == 0 && b ==0 && c != 0){
@@ -21,8 +34,8 @@ int main(){
     }
     if (a == 0 && b ==0 && c == 0){
         printf("Бесконечно много корней");
-    }                                                                 //Обработка решений в общем виде через дискриминант
-    if (a!=0 && discr > 0){
+    }
+    if (a!=0 && discr > 0){     //Обработка решений в общем виде через дискриминант
         printf("Уравнение имеет два вещественных корня:\n");
         printf("x1 = %f\n", (-b + sqrt(discr))/2*a);
         printf("x2 = %f\n", (-b - sqrt(discr))/2*a);
