@@ -4,64 +4,77 @@
 #include <TXlib.h>
 #define _CRT_SECURE_NO_WARNINGS
 #include <math.h>
+#include <stdbool.h>
 
-float check_input_number (float x);
+float read_number ();
 void solve_quadratic_equation (float a, float b, float c, float discr);
 void solve_linear_equation (float a, float b, float c);
+bool is_equal(float x);
+const float epsillon = 1e-6;
 
 int main(){
     float a = 0, b = 0, c = 0;
     printf("Для уравнения вида ax^2+bx+c = 0 введите коэффициенты:\n");
     printf("a = ");
-    a = check_input_number (a);
+    a = read_number ();
     printf("b = ");
-    b = check_input_number (b);
+    b = read_number ();
     printf("c = ");
-    c = check_input_number (c);
+    c = read_number ();
     if (a == 0) {    //Обработка случаев при a = 0
     solve_linear_equation (a,b,c);
     }
     else {
-    float discr;
+    float discr = 0;
     discr = pow (b, 2) - 4*a*c; //Вычисление дискриминанта
     solve_quadratic_equation (a, b, c, discr);  //Обработка решений через дискриминант
     }
 return 0;
 }
 
-float check_input_number (float x) {
+float read_number () {
     char ch;
+    float x;
     while (scanf("%f", &x) != 1){
     while ((ch = getchar()) != '\n')
        putchar(ch);
        printf(" - не могу прочитать число. Повторите попытку. \n");
     }
+    while (getchar() != '\n'){
+        continue;
+    }
     return x;
-    fflush(stdin);
 }
 
 void solve_quadratic_equation (float a, float b, float c, float discr) {
-    float epsillon = 1e-6;
-    if (abs(a - 0) > epsillon && discr>0){
+    if (is_equal(a) == true && discr>0){
         printf("Уравнение имеет два вещественных корня:\n");
         printf("x1 = %f\n", (-b + sqrt(discr))/2*a);
         printf("x2 = %f\n", (-b - sqrt(discr))/2*a);
     }
-    if (abs(a - 0) > epsillon && discr == 0){
+    if (is_equal(a)==true && discr == 0){
         printf("Уравнение имеет один вещественный корень:\n");
         printf("x = %f\n", -b/2*a);
     }
-    if (abs(a - 0) > epsillon && discr < 0){
+    if (is_equal(a) == true && discr < 0){
         printf("Уравнение не имеет вещественных корней\n");
     }
 }
 
+bool is_equal (float x) {
+    if (abs(x - 0) > epsillon){
+    return true;
+    }
+    else {
+    return false;
+    }
+}
+
 void solve_linear_equation (float a, float b, float c){
-    float epsillon = 1e-6;
-    if (abs(b - 0) > epsillon){
+    if (is_equal(b) == true) {
         printf("Уравнение не квадратное, а линейное. x = %f", c/b);
     }
-    if (b == 0 && abs(c - 0) > epsillon){
+    if (b == 0 && is_equal(c) == true) {
         printf("Корней нет. Неправильное уравнение");
     }
     if (b == 0 && c == 0){
