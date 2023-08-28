@@ -3,11 +3,11 @@
 #ifndef SOLVE_EQUATION_H
 #define SOLVE_EQUATION_H
 /// A set of possible values of the number of roots
-enum NRoots {ZERO_NULL, ///< 0 roots
-            ZERO_ONE,   ///< 1 root
-            ZERO_TWO,   ///< 2 roots
-            INCORRECT,  ///< Incorrect equation, no roots
-            INF_ROOTS   ///< Infinitely many roots
+enum NRoots {ZERO_NULL = 0, ///< 0 roots
+            ZERO_ONE = 1,   ///< 1 root
+            ZERO_TWO = 2,   ///< 2 roots
+            INCORRECT = 3,  ///< Incorrect equation, no roots
+            INF_ROOTS = 4   ///< Infinitely many roots
 };
 
 /*!
@@ -35,6 +35,6 @@ NRoots solve_quadratic_equation (double a, double b, double c, double *x1, doubl
     \param [out] root x2
     \return the enum NRoots field depending on the number of roots received
 */
-NRoots solve_linear_equation (double b, double c, double *x1, double *x2);
+NRoots solve_linear_equation (double b, double c, double *x1);
 
 #endif

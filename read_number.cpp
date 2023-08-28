@@ -7,12 +7,13 @@
 #include "solve_equation.h"
 
 void read_number (double *a, double *b, double *c) {
+  // g_ptr
 
     assert (isfinite (*a) != 0);
     assert (isfinite (*b) != 0);
     assert (isfinite (*c) != 0);
 
-    while (scanf ("%lg %lg %lg", a, b, c ) != 3) {
+    while (scanf ("%lg %lg %lg", a, b, c ) != 3) {  //TODO: поработать с вводомЅ корректность ввода 1 2 4rfefg
         printf ("I can't read the numbers. Try again. \n");
 
         clear_buffer();

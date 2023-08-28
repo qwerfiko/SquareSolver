@@ -15,7 +15,7 @@ struct Test_data
     double c;   ///< ref-value of the coefficient c
     double x1ref;   ///< ref-the value of the root x1
     double x2ref;   ///< ref-the value of the root x2
-    NRoots Roots_ref;   ///< ref-value of the number of roots
+    int    Roots_ref;   ///< ref-value of the number of roots
 };
 /*!
     The function takes a pointer to an array of data structures.
@@ -25,5 +25,7 @@ struct Test_data
     \return 1 if the test was successful
  */
 int Test_solve (Test_data* data);
+int TestAll (int argc, char* argv[]);
+int test_loop (Test_data* data, int length);
 
 #endif

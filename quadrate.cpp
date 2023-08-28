@@ -21,42 +21,33 @@
 #include "read_number.h"
 #include "solve_equation.h"
 
+
 int main (int argc, char* argv[]) {
+
+    int number_of_errors = TestAll (argc, argv);
+    if (number_of_errors != 0) {
+        printf ("Number of errors: %i\n", number_of_errors);
+    }
 
     double a = 0;
     double b = 0;
     double c = 0;
 
-    consolePaintText(TEXT_MAGENTA);
+    consolePaintText (TEXT_MAGENTA);
     printf ("Enter the coefficients a, b, c separated by a space: ");
+    consolePaintText (TEXT_WHITE);
 
     read_number (&a, &b, &c);
 
     double x1 = 0;
     double x2 = 0;
-    /// When you enter the --test file into the console after launching, program testing starts
-    if (argc == 2 && strcmp (argv[1], "--test") == 0) {
-        Test_data data [] = {    { .a = 1, .b = 2, .c = 1,   .x1ref = -1, .x2ref = 0,  ZERO_ONE },  //< ref-values a != 0, discr = 0
-                                 { .a = 1, .b = 0, .c = - 4, .x1ref = 2,  .x2ref = -2, ZERO_TWO },  //< ref-values a != 0, discr > 0
-                                 { .a = 2, .b = 1, .c = 4,   .x1ref = 0,  .x2ref = 0,  ZERO_NULL }, //< ref-values a != 0, discr < 0
-                                 { .a = 0, .b = 0, .c = 0,   .x1ref = 0,  .x2ref = 0,  INF_ROOTS }, //< ref-values a == 0, b =0, c = 0
-                                 { .a = 0, .b = 2, .c = 4,   .x1ref = 2,  .x2ref = 0,  ZERO_ONE },  //< ref-values a == 0, b !=0, c!= 0
-                                 { .a = 0, .b = 0, .c = 2,   .x1ref = 0,  .x2ref = 0,  INCORRECT }  //< ref-values a == 0, b = 0, c!=0
-        };
-             // TODO: consolePaintText(TEXT_RED); // enum CONSOLE_COLORS {TEXT_RED = 3456789};
-
-        for (unsigned i = 0; i < sizeof (data) / sizeof (Test_data); i++) {
-            Test_solve (&data [i]);
-        }
-    }
-
     /// The return value of the solve_quadratic_equution function (a, b, c, &x1, %x2) is stored in the solutions variable
     NRoots solutions = solve_quadratic_equation (a, b, c, &x1, &x2);
 
-    consolePaintText(TEXT_BLUE);
+    consolePaintText (TEXT_BLUE);
 
     /// switch compares the resulting expression from the keys variable with case and displays information about the solution on the screen
-    switch (solutions) {
+    switch (solutions) {//TODO: вынести в отдельную функцию и в test_solve_equation использовать тоже
         case ZERO_NULL:
         printf ("The equation has no real roots\n");
         break;
@@ -78,11 +69,14 @@ int main (int argc, char* argv[]) {
         break;
 
     default:
-        printf ("Reached default case in function %s. Unexpected number of roots: %d\n", __PRETTY_FUNCTION__, __LINE__);
+        printf ("Reached default case in function %s. Unexpected number of roots: %d\n", __PRETTY_FUNCTION__, __LINE__);  //кол-во корней вывести
     }
+
+    consolePaintText (TEXT_WHITE);
 
     return 0;
 }
+
 
 
 
